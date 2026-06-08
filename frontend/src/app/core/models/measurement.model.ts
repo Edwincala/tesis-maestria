@@ -29,3 +29,12 @@ export interface MeasurementQueryParams {
     page?: number;
     size?: number;
 }
+
+export type MeasurementVariable =
+  | 'voltage'
+  | 'current'
+  | 'power'
+  | 'irradiance'
+  | 'ambientTemperature'
+  | 'panelTemperature'
+  | 'relativeHumidity';
