@@ -1,0 +1,58 @@
+<section class="flex min-h-[70vh] items-center justify-center">
+  <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm">
+    <div class="mb-6 text-center">
+      <p class="text-sm font-semibold uppercase tracking-wide text-blue-600">
+        Acceso
+      </p>
+
+      <h2 class="mt-2 text-3xl font-bold text-slate-900">
+        Iniciar sesión
+      </h2>
+
+      <p class="mt-2 text-sm text-slate-600">
+        Esta pantalla será integrada posteriormente con Spring Security y JWT.
+      </p>
+    </div>
+
+    <form class="space-y-4">
+      <div>
+        <label
+          for="email"
+          class="mb-1 block text-sm font-medium text-slate-700"
+        >
+          Correo electrónico
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="usuario@correo.com"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+      </div>
+
+      <div>
+        <label
+          for="password"
+          class="mb-1 block text-sm font-medium text-slate-700"
+        >
+          Contraseña
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="********"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="w-full rounded-lg bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700"
+      >
+        Ingresar
+      </button>
+    </form>
+  </div>
+</section>
