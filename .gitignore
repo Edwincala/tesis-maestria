@@ -1,0 +1,32 @@
+# Java / Maven
+target/
+*.class
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# Mosquitto runtime data
+docker/mosquitto/data/*
+!docker/mosquitto/data/.gitkeep
+docker/mosquitto/log/*
+!docker/mosquitto/log/.gitkeep
