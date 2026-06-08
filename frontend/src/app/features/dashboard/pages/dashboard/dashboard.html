@@ -30,74 +30,28 @@
     <p *ngIf="errorMessage" class="mb-4 rounded-lg bg-red-50 p-4 text-sm font-medium text-red-700">{{errorMessage}}</p>
 
     <section *ngIf="latestMeasurement" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Voltaje DC</span>
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.voltage }} V
-            </strong>
-        </article>
+        <app-measurement-card title="Voltaje DC" [value]="latestMeasurement.voltage" unit="V"
+            description="Diferencia de potencial del panel" [warning]="isNegative(latestMeasurement.voltage)" />
 
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Corriente DC</span>
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.current }} A
-            </strong>
-        </article>
+        <app-measurement-card title="Corriente DC" [value]="latestMeasurement.current" unit="A"
+            description="Corriente suministrada por el panel" [warning]="isNegative(latestMeasurement.current)" />
 
+        <app-measurement-card title="Potencia instantánea" [value]="latestMeasurement.power" unit="W"
+            description="Potencia generada en el instante" [warning]="isNegative(latestMeasurement.power)" />
 
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Potencia instantánea</span>
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.power }} W
-            </strong>
-        </article>
+        <app-measurement-card title="Irradiancia solar" [value]="latestMeasurement.irradiance" unit="W/m²"
+            description="Radiación solar recibida" [warning]="isNegative(latestMeasurement.irradiance)" />
 
+        <app-measurement-card title="Temperatura ambiente" [value]="latestMeasurement.ambientTemperature" unit="°C"
+            description="Temperatura del aire" />
 
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Irradiancia solar</span>
+        <app-measurement-card title="Temperatura del panel" [value]="latestMeasurement.panelTemperature" unit="°C"
+            description="Temperatura superficial del módulo" />
 
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.irradiance }} W/m²
-            </strong>
-        </article>
+        <app-measurement-card title="Humedad relativa" [value]="latestMeasurement.relativeHumidity" unit="%"
+            description="Porcentaje de humedad del ambiente" [warning]="isHumidityOutOfRange()" />
 
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Temperatura ambiente</span>
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.ambientTemperature }} °C
-            </strong>
-        </article>
-
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">Temperatura del panel</span>
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.panelTemperature }} °C
-            </strong>
-        </article>
-
-        <article class="rounded-2xl p-5 shadow-sm" [ngClass]="
-        isHumidityOutOfRange()
-          ? 'bg-orange-50 ring-1 ring-orange-300'
-          : 'bg-white'
-      ">
-            <span class="text-sm font-medium text-slate-500">
-                Humedad relativa
-            </span>
-
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.relativeHumidity }} %
-            </strong>
-        </article>
-
-        <article class="rounded-2xl bg-white p-5 shadow-sm">
-            <span class="text-sm font-medium text-slate-500">
-                Calidad del dato
-            </span>
-
-            <strong class="mt-2 block text-3xl font-bold text-slate-900">
-                {{ latestMeasurement.quality ?? 'N/A' }}
-            </strong>
-        </article>
-
+        <app-measurement-card title="Calidad del dato" [value]="latestMeasurement.quality ?? 'N/A'"
+            description="Estado inicial de validación" [warning]="latestMeasurement.quality === 'INVALID'" />
     </section>
 </section>

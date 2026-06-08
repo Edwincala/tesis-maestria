@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Measurement } from '../../../../core/models/measurement.model';
 import { MeasurementService } from '../../../../core/services/measurement';
+import { MeasurementCard } from '../../../../shared/components/measurement-card/measurement-card';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MeasurementCard],
   templateUrl: './dashboard.html'
 })
 export class DashboardComponent implements OnInit{
