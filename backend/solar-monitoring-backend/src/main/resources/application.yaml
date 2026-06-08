@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: solar-monitoring-backend
+  profiles:
+    active: dev
+  jmx:
+    enabled: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/solar_monitoring
+    username: solar_user
+    password: solar_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+mqtt:
+  host: ${MQTT_HOST:localhost}
+  port: ${MQTT_PORT:1884}
+  username: ${MQTT_USERNAME:}
+  password: ${MQTT_PASSWORD:}
+  client-id: ${MQTT_CLIENT_ID:solar-backend-consumer}
+  qos: ${MQTT_QOS:1}
+  telemetry-topic: ${MQTT_tELEMETRY_TOPIC:solar/+/telemetry}
+  status-topic: ${MQTT_STATUS_TOPIC:solar/+/status}
+  alerts-topic: ${MQTT_ALERTS_TOPIC:solar/+/alerts}
+
+logging:
+  level:
+    com.edwincala.solarmonitoringbackend: DEBUG
