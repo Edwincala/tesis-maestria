@@ -115,6 +115,13 @@
     {{ errorMessage }}
   </p>
 
+  <div *ngIf="!isLoading && measurements.length > 0" class="mb-8">
+    <app-measurement-line-chart
+    [measurements]="measurements"
+    [variable]="selectedVariable"
+    [label]="getSelectedVariableLabel()"
+    [unit]="getSelectedVariableUnit()" />
+  </div>
   <section
     *ngIf="!isLoading && measurements.length > 0"
     class="rounded-2xl bg-white shadow-sm"

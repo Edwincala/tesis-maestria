@@ -3,6 +3,7 @@ import { Measurement, MeasurementVariable } from '../../../../core/models/measur
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MeasurementService } from '../../../../core/services/measurement';
+import { MeasurementLineChart } from '../../../../shared/components/measurement-line-chart/measurement-line-chart';
 
 interface VariableOption{
   label: string;
@@ -13,7 +14,7 @@ interface VariableOption{
 @Component({
   selector: 'app-measurements-history',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MeasurementLineChart],
   templateUrl: './measurements-history.html',
 })
 export class MeasurementsHistory {
