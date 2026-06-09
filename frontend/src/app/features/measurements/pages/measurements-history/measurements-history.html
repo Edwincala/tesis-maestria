@@ -11,130 +11,96 @@
   </header>
 
   <section class="mb-8 rounded-2xl bg-white p-6 shadow-sm">
-    <form
-      class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5"
-      (ngSubmit)="searchMeasurements()"
-    >
+    <form class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5" (ngSubmit)="searchMeasurements()">
       <div>
-        <label
-          for="deviceId"
-          class="mb-1 block text-sm font-medium text-slate-700"
-        >
+        <label for="deviceId" class="mb-1 block text-sm font-medium text-slate-700">
           Panel
         </label>
 
-        <input
-          id="deviceId"
-          name="deviceId"
-          type="text"
-          [(ngModel)]="deviceId"
-          placeholder="panel-001"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        />
+        <input id="deviceId" name="deviceId" type="text" [(ngModel)]="deviceId" placeholder="panel-001"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
       </div>
 
       <div>
-        <label
-          for="from"
-          class="mb-1 block text-sm font-medium text-slate-700"
-        >
+        <label for="from" class="mb-1 block text-sm font-medium text-slate-700">
           Fecha inicial
         </label>
 
-        <input
-          id="from"
-          name="from"
-          type="datetime-local"
-          [(ngModel)]="from"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        />
+        <input id="from" name="from" type="datetime-local" [(ngModel)]="from"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
       </div>
 
       <div>
-        <label
-          for="to"
-          class="mb-1 block text-sm font-medium text-slate-700"
-        >
+        <label for="to" class="mb-1 block text-sm font-medium text-slate-700">
           Fecha final
         </label>
 
-        <input
-          id="to"
-          name="to"
-          type="datetime-local"
-          [(ngModel)]="to"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        />
+        <input id="to" name="to" type="datetime-local" [(ngModel)]="to"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
       </div>
 
       <div>
-        <label
-          for="variable"
-          class="mb-1 block text-sm font-medium text-slate-700"
-        >
+        <label for="variable" class="mb-1 block text-sm font-medium text-slate-700">
           Variable
         </label>
 
-        <select
-          id="variable"
-          name="variable"
-          [(ngModel)]="selectedVariable"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        >
-          <option
-            *ngFor="let variable of variableOptions"
-            [value]="variable.value"
-          >
+        <select id="variable" name="variable" [(ngModel)]="selectedVariable"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+          <option *ngFor="let variable of variableOptions" [value]="variable.value">
             {{ variable.label }}
           </option>
         </select>
       </div>
 
       <div class="flex items-end">
-        <button
-          type="submit"
-          class="w-full rounded-lg bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700"
-        >
+        <button type="submit"
+          class="w-full rounded-lg bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700">
           Consultar
         </button>
       </div>
     </form>
   </section>
 
-  <p
-    *ngIf="isLoading"
-    class="rounded-lg bg-white p-4 text-slate-600 shadow-sm"
-  >
+  <p *ngIf="isLoading" class="rounded-lg bg-white p-4 text-slate-600 shadow-sm">
     Consultando mediciones...
   </p>
 
-  <p
-    *ngIf="errorMessage"
-    class="mb-4 rounded-lg bg-red-50 p-4 text-sm font-medium text-red-700"
-  >
+  <p *ngIf="errorMessage" class="mb-4 rounded-lg bg-red-50 p-4 text-sm font-medium text-red-700">
     {{ errorMessage }}
   </p>
 
   <div *ngIf="!isLoading && measurements.length > 0" class="mb-8">
-    <app-measurement-line-chart
-    [measurements]="measurements"
-    [variable]="selectedVariable"
-    [label]="getSelectedVariableLabel()"
-    [unit]="getSelectedVariableUnit()" />
+    <app-measurement-line-chart [measurements]="measurements" [variable]="selectedVariable"
+      [label]="getSelectedVariableLabel()" [unit]="getSelectedVariableUnit()" />
   </div>
-  <section
-    *ngIf="!isLoading && measurements.length > 0"
-    class="rounded-2xl bg-white shadow-sm"
-  >
-    <div class="border-b border-slate-200 p-6">
-      <h3 class="text-xl font-bold text-slate-900">
-        Resultados
-      </h3>
+  <section *ngIf="!isLoading && measurements.length > 0" class="rounded-2xl bg-white shadow-sm">
+    <div class="flex flex-col gap-4 border-b border-slate-200 p-6 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h3 class="text-xl font-bold text-slate-900">
+          Resultados
+        </h3>
 
-      <p class="mt-1 text-sm text-slate-600">
-        Variable seleccionada:
-        <strong>{{ getSelectedVariableLabel() }}</strong>
-      </p>
+        <p class="mt-1 text-sm text-slate-600">
+          Variable seleccionada:
+          <strong>{{ getSelectedVariableLabel() }}</strong>
+        </p>
+
+        <p class="mt-1 text-sm text-slate-500">
+          {{ measurements.length }} mediciones encontradas
+        </p>
+      </div>
+
+      <button type="button" (click)="downloadCsv()" [disabled]="measurements.length === 0"
+        class="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-slate-300">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          class="h-4 w-4" aria-hidden="true">
+          <path d="M12 3v12" />
+          <path d="m7 10 5 5 5-5" />
+          <path d="M5 21h14" />
+        </svg>
+
+        Descargar CSV
+      </button>
     </div>
 
     <div class="overflow-x-auto">
@@ -164,10 +130,7 @@
         </thead>
 
         <tbody class="divide-y divide-slate-100 bg-white">
-          <tr
-            *ngFor="let measurement of measurements"
-            class="hover:bg-slate-50"
-          >
+          <tr *ngFor="let measurement of measurements" class="hover:bg-slate-50">
             <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">
               {{ formatDate(measurement.measuredAt || measurement.timestamp) }}
             </td>
@@ -186,18 +149,15 @@
             </td>
 
             <td class="whitespace-nowrap px-6 py-4 text-sm">
-              <span
-                class="rounded-full px-3 py-1 text-xs font-semibold"
-                [ngClass]="
+              <span class="rounded-full px-3 py-1 text-xs font-semibold" [ngClass]="
                   isValueOutOfRange(measurement)
                     ? 'bg-orange-100 text-orange-700'
                     : 'bg-green-100 text-green-700'
-                "
-              >
+                ">
                 {{
-                  isValueOutOfRange(measurement)
-                    ? 'Fuera de rango'
-                    : 'Normal'
+                isValueOutOfRange(measurement)
+                ? 'Fuera de rango'
+                : 'Normal'
                 }}
               </span>
             </td>
@@ -207,10 +167,8 @@
     </div>
   </section>
 
-  <section
-    *ngIf="hasSearched && !isLoading && measurements.length === 0 && !errorMessage"
-    class="rounded-2xl bg-white p-6 text-center shadow-sm"
-  >
+  <section *ngIf="hasSearched && !isLoading && measurements.length === 0 && !errorMessage"
+    class="rounded-2xl bg-white p-6 text-center shadow-sm">
     <h3 class="text-lg font-semibold text-slate-900">
       Sin resultados
     </h3>
