@@ -1,0 +1,54 @@
+<section>
+    <header class="mb-8">
+        <h2 class="text-3xl font-bold text-slate-900">
+            Dashboard
+        </h2>
+
+        <p class="mt-2 max-w-3xl text-slate-600">
+            Visualización de la última medición disponible del sistema fotovoltaico.
+        </p>
+    </header>
+
+    <section class="mb-8 rounded-2xl bg-white p-5 shadow-sm">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end">
+            <div class="flex flex-col">
+                <label for="deviceId" class="mb-1 text-sm font-medium text-slate-700">Identificador del panel</label>
+                <input id="deviceId" [(ngModel)]="deviceId" placeholder="panel-001" type="text"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 md:w-64">
+            </div>
+            <button type="button" (click)="loadLatestMeasurement()"
+                class="rounded-lg bg-blue-600 px-5 py-2 font-medium text-white transition hover:bg-blue-700">Actualizar
+                medición</button>
+        </div>
+    </section>
+
+    <p *ngIf="isLoading" class="rounded-lg bg-white p-4 text-slate-600 shadow-sm">Cargando medición...</p>
+
+    <p *ngIf="errorMessage" class="mb-4 rounded-lg bg-red-50 p-4 text-sm font-medium text-red-700">{{errorMessage}}</p>
+
+    <section *ngIf="latestMeasurement" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <app-measurement-card title="Voltaje DC" [value]="latestMeasurement.voltage" unit="V"
+            description="Diferencia de potencial del panel" [warning]="isNegative(latestMeasurement.voltage)" />
+
+        <app-measurement-card title="Corriente DC" [value]="latestMeasurement.current" unit="A"
+            description="Corriente suministrada por el panel" [warning]="isNegative(latestMeasurement.current)" />
+
+        <app-measurement-card title="Potencia instantánea" [value]="latestMeasurement.power" unit="W"
+            description="Potencia generada en el instante" [warning]="isNegative(latestMeasurement.power)" />
+
+        <app-measurement-card title="Irradiancia solar" [value]="latestMeasurement.irradiance" unit="W/m²"
+            description="Radiación solar recibida" [warning]="isNegative(latestMeasurement.irradiance)" />
+
+        <app-measurement-card title="Temperatura ambiente" [value]="latestMeasurement.ambientTemperature" unit="°C"
+            description="Temperatura del aire" />
+
+        <app-measurement-card title="Temperatura del panel" [value]="latestMeasurement.panelTemperature" unit="°C"
+            description="Temperatura superficial del módulo" />
+
+        <app-measurement-card title="Humedad relativa" [value]="latestMeasurement.relativeHumidity" unit="%"
+            description="Porcentaje de humedad del ambiente" [warning]="isHumidityOutOfRange()" />
+
+        <app-measurement-card title="Calidad del dato" [value]="latestMeasurement.quality ?? 'N/A'"
+            description="Estado inicial de validación" [warning]="latestMeasurement.quality === 'INVALID'" />
+    </section>
+</section>
